@@ -20,7 +20,9 @@ if __name__ == '__main__':
     default_graph = tf.get_default_graph()
 
     with default_graph.as_default() as graph:
-        sess = tf.Session(graph=graph)
+        config=tf.ConfigProto()    
+        config.gpu_options.allow_growth = True
+        sess = tf.Session(config=config, graph=graph)
 
         global_step = tf.train.create_global_step()
         learning_rate = tf.train.exponential_decay(learning_rate_info['init_rate'],

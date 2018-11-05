@@ -8,19 +8,19 @@ from tensorflow.nn import relu, leaky_relu, sigmoid
 
 def model(input_image, training):
 
-    conv1 = tf.layers.conv2d(input_image, filters=48, kernel_size=(3, 3), strides=(2, 2),
+    conv1 = tf.layers.conv2d(input_image, filters=24, kernel_size=(3, 3), strides=(2, 2),
                              padding='valid', activation = leaky_relu, use_bias=True,
                              kernel_initializer = tf.initializers.glorot_normal(),
                              bias_initializer = tf.initializers.glorot_normal(),
                              kernel_regularizer = tf.contrib.layers.l2_regularizer(0.1),
                              trainable=True, name='conv1')
 
-    max1 = tf.layers.max_pooling2d(conv1, pool_size=(2,2), strides=(1, 1), padding='valid',
+    max1 = tf.layers.max_pooling2d(conv1, pool_size=(3,3), strides=(2, 2), padding='valid',
                                    name='max1')
 
     batch_norm1 = batch_normalization(max1, training=training)
 
-    conv2 = tf.layers.conv2d(batch_norm1, filters=96, kernel_size=(3, 3), strides=(2, 2),
+    conv2 = tf.layers.conv2d(batch_norm1, filters=36, kernel_size=(3, 3), strides=(2, 2),
                              padding='valid', activation=leaky_relu, use_bias=True,
                              kernel_initializer=tf.initializers.glorot_normal(),
                              bias_initializer=tf.initializers.glorot_normal(),
@@ -32,7 +32,7 @@ def model(input_image, training):
 
     batch_norm2 = batch_normalization(max2, training=training)
 
-    conv3 = tf.layers.conv2d(batch_norm2, filters=128, kernel_size=(2, 2), strides = (1,1),
+    conv3 = tf.layers.conv2d(batch_norm2, filters=60, kernel_size=(2, 2), strides = (1,1),
                              padding='valid', activation = leaky_relu, use_bias=True,
                              kernel_initializer = tf.initializers.glorot_normal(),
                              bias_initializer = tf.initializers.glorot_normal(),
@@ -44,7 +44,7 @@ def model(input_image, training):
 
     batch_norm3 = batch_normalization(max3, training=training)
 
-    conv4 = tf.layers.conv2d(batch_norm3, filters=192, kernel_size=(2, 2), strides=(1, 1),
+    conv4 = tf.layers.conv2d(batch_norm3, filters=96, kernel_size=(2, 2), strides=(1, 1),
                              padding='valid', activation=leaky_relu, use_bias=True,
                              kernel_initializer=tf.initializers.glorot_normal(),
                              bias_initializer=tf.initializers.glorot_normal(),
@@ -56,7 +56,7 @@ def model(input_image, training):
 
     batch_norm4 = batch_normalization(max4, training=training)
 
-    conv5 = tf.layers.conv2d(batch_norm4, filters=224, kernel_size=(2, 2), strides=(1, 1),
+    conv5 = tf.layers.conv2d(batch_norm4, filters=128, kernel_size=(2, 2), strides=(1, 1),
                              padding='same', activation=leaky_relu, use_bias=True,
                              kernel_initializer=tf.initializers.glorot_normal(),
                              bias_initializer=tf.initializers.glorot_normal(),
@@ -68,7 +68,7 @@ def model(input_image, training):
 
     batch_norm5 = batch_normalization(max5, training=training)
 
-    conv6 = tf.layers.conv2d(batch_norm4, filters=1024, kernel_size=(1, 1), strides=(1, 1),
+    conv6 = tf.layers.conv2d(batch_norm5, filters=1024, kernel_size=(1, 1), strides=(1, 1),
                              padding='same', activation=leaky_relu, use_bias=True,
                              kernel_initializer=tf.initializers.glorot_normal(),
                              bias_initializer=tf.initializers.glorot_normal(),
@@ -76,12 +76,12 @@ def model(input_image, training):
                              trainable=True, name='conv6')
 
 
-    max6 = tf.layers.max_pooling2d(conv5, pool_size=(2, 2), strides=(1, 1), padding='valid',
+    max6 = tf.layers.max_pooling2d(conv6, pool_size=(2, 2), strides=(1, 1), padding='valid',
                                    name='max6')
 
-    batch_norm5 = batch_normalization(max6, training=training)
+    batch_norm6 = batch_normalization(max6, training=training)
 
-    batch_norm_flat = tf.layers.Flatten()(batch_norm5)
+    batch_norm_flat = tf.layers.Flatten()(batch_norm6)
 
     dense1 = tf.layers.dense(batch_norm_flat, units=512, use_bias=True,
                              kernel_initializer=tf.initializers.glorot_normal(),

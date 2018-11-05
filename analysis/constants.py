@@ -4,16 +4,16 @@ import tensorflow as tf
 
 from tf_parser import Parser
 
-#device_string = '/device:GPU:0'
-device_string = '/device:CPU:0'
+device_string = '/device:GPU:0'
+#device_string = '/device:CPU:0'
 
 ## definition of epoch in terms of batch number
-## 34801/1004/1509 Train/Valid/Test data
+## 34662/1011/1530 Train/Valid/Test data
 batch_size = 32
-batch_per_training_epoch = int(np.floor(5*1004/32)) #int(np.floor(7490/32))
+batch_per_training_epoch = int(np.floor(5*1011/32)) #int(np.floor(7490/32))
 
 ## batches to be used during statistics collections
-batch_per_validation_epoch = int(np.floor(1004/32)) #int(np.floor(994/32))
+batch_per_validation_epoch = int(np.floor(1530/32)) #int(np.floor(994/32))
 
 learning_rate_info = dict()
 learning_rate_info['init_rate'] = 0.0005
@@ -45,8 +45,8 @@ train_summary_path = join( checkpoint_path, 'train' )
 valid_summary_path = join( checkpoint_path, 'valid' )
 
 
-train_tfrecords = '/home/rajib/skin/record/train.tfrecords'
-valid_tfrecords = '/home/rajib/skin/record/test.tfrecords'
+train_tfrecords = '/home/rajib/skin/ham_analysis/record/train.tfrecords'
+valid_tfrecords = '/home/rajib/skin/ham_analysis/record/test.tfrecords'
 
 ## information for parsing the tfrecord
 features = {'image': tf.FixedLenFeature([], tf.string),
