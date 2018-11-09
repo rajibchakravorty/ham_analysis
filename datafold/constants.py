@@ -1,8 +1,10 @@
 
 
-image_folder = '/opt/kaggle/skin/all_images'
+#image_folder = '/opt/kaggle/skin/all_images'
+image_folder = 'gs://skin-image-221423-vcm/all_images'
 
-image_label_file = '/opt/kaggle/skin/HAM10000_metadata.csv'
+
+image_label_file = '/Users/rajib/progs/skin/data/HAM10000_metadata.csv'
 
 # Actinic keratoses and intraepithelial carcinoma / Bowen's disease (akiec)
 # basal cell carcinoma (bcc),
